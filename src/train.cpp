@@ -39,16 +39,16 @@ int Train::getLength() {
     current = current->next;
     ++n;
   }
-  countOp = 0;
   bool orig = first->light;
   countOp = 0;
-  for (int i = 0; i < (orig ? (n + 1) : 2); ++i) {
+  int loops = orig ? (n + 1) : 2;
+  for (int i = 0; i < loops; ++i) {
     first->light = !first->light;
-    Car* p = first;
-    do {
+    const Car* p = first;
+    for (int j = 0; j < n; ++j) {
       p = p->next;
       ++countOp;
-    } while (p->light != first->light);
+    }
   }
   first->light = orig;
   return n;
